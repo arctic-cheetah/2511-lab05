@@ -18,8 +18,8 @@ import metrics.Plot;
 
 public class Grapher {
     public static void main(String[] args) throws InterruptedException {
-
-        Plot plot = new Plot();
+        Emitter emitter = new Emitter();
+        Plot plot = new Plot(emitter);
         // Create the GUI on the Event-Dispatch-Thread
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -28,7 +28,6 @@ public class Grapher {
             }
         });
 
-        Emitter emitter = new Emitter();
         int i = 0;
         while (true) {
             Thread.sleep(100);
