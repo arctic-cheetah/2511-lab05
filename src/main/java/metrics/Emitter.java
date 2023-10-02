@@ -16,8 +16,8 @@ public class Emitter implements Subject {
         observers.add(o);
     }
 
+    //When emitMetric is called notify all observers
     public void notifyObservers(Double o) {
-        //When emitMetric is called notify all observers
         observers.forEach(e -> e.update(o));
     }
 

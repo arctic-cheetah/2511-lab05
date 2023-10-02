@@ -14,6 +14,10 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import metrics.Emitter;
 import metrics.Plot;
+import metrics.metricBehaviour.AllPoints;
+import metrics.metricBehaviour.AverageRange;
+import metrics.metricBehaviour.MaxRange;
+import metrics.metricBehaviour.SumRange;
 
 public class Grapher {
     public static void main(String[] args) throws InterruptedException {
@@ -75,7 +79,17 @@ public class Grapher {
             @Override
             public void valueChanged(ListSelectionEvent event) {
                 String statistic = statisticsList.getSelectedValue();
+                System.out.println(statistic);
                 // TODO Change Strategy based on what button is pressed
+                if (statistic.equals(statistics[0])) {
+                    plotPanel.setMetricBehaviour(new AllPoints());
+                } else if (statistic.equals(statistics[1])) {
+                    plotPanel.setMetricBehaviour(new AverageRange());
+                } else if (statistic.equals(statistics[2])) {
+                    plotPanel.setMetricBehaviour(new MaxRange());
+                } else if (statistic.equals(statistics[3])) {
+                    plotPanel.setMetricBehaviour(new SumRange());
+                }
             }
         };
         statisticsList.addListSelectionListener(changeListener);

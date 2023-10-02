@@ -12,6 +12,8 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import metrics.Plot;
+import metrics.metricBehaviour.AllPoints;
+import metrics.metricBehaviour.MetricBehaviour;
 
 public class Panel extends JPanel {
     private static final long serialVersionUID = -6588061082489436970L;
@@ -19,11 +21,13 @@ public class Panel extends JPanel {
     private int numberYDivisions = 10;
     private int pointWidth = 4;
     private Color gridColor = new Color(200, 200, 200, 200);
+    private MetricBehaviour calculateData = new AllPoints();
 
     private Plot plot;
 
     public Panel(Plot plot) {
         this.plot = plot;
+        setMetricBehaviour(new AllPoints());
     }
 
     public void setPlot(Plot plot) {
@@ -52,8 +56,9 @@ public class Panel extends JPanel {
 
     private void paintData(Graphics2D g) {
         List<Double> emitterData = plot.getData();
-
         // TODO change data based on statistic
+        // Insert MetricBehaviour here
+        emitterData = calculateData.calculateOverInterval(emitterData);
 
         double x = (double) (getWidth() - 2 * marg) / (emitterData.size() - 1);
         double scale = (double) (getHeight() - 2 * marg)
@@ -122,6 +127,14 @@ public class Panel extends JPanel {
             maxValue = Math.max(maxValue, value);
         }
         return maxValue;
+    }
+
+    public MetricBehaviour getCalculateData() {
+        return calculateData;
+    }
+
+    public void setMetricBehaviour(MetricBehaviour calculateData) {
+        this.calculateData = calculateData;
     }
 
 }

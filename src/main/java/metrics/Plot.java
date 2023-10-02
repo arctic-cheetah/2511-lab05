@@ -3,12 +3,10 @@ package metrics;
 import java.util.ArrayList;
 import java.util.List;
 
-import metrics.graphing.Grapher;
 import metrics.graphing.Panel;
 
 public class Plot implements Observer {
     private Panel panel;
-    // You may remove the example data for metrics to complete your implementation
     private List<Double> metrics = new ArrayList<Double>();
     private int range = 150;
 
