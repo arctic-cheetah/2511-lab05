@@ -8,7 +8,7 @@ public interface MetricBehaviour {
      * Given the data, apply the calculations over an interval,
      * and return a new copy of the transformed data
      * @param data
-     * @return 
+     * @return
      */
     public List<Double> calculateOverInterval(List<Double> data);
 }

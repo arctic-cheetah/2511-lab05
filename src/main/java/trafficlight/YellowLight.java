@@ -1,7 +1,7 @@
 package trafficlight;
 
 public class YellowLight implements State {
-    TrafficLight trafficLight;
+    private TrafficLight trafficLight;
 
     public YellowLight(TrafficLight trafficLight) {
         this.trafficLight = trafficLight;

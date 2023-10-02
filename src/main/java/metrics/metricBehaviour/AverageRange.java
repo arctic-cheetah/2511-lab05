@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AverageRange implements MetricBehaviour {
-    private final int WINDOW_SIZE = 10;
+    private static final int WINDOW_SIZE = 10;
 
     /**
      * Given a list of doubles, where the number of elements is divisible by 10.
-     * return an average. 
+     * return an average.
      * @pre Assume that we receive a list of doubles where the elements are divisible by 10
      * @post return a list of averages over a 10 point window
      * @param data
