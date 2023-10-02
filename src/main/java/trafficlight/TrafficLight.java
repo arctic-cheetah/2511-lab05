@@ -1,19 +1,29 @@
 package trafficlight;
 
 public class TrafficLight {
-    private String state = "Red light";
-    private String id;
+    private State state;
+    private int trafficDemand;
+
+    private State greenLight;
+    private State yellowLight;
+    private State redLight;
 
     private int count = 0;
 
     public TrafficLight(String state, String id) {
-        this.state = state;
-        this.id = id;
+        this.redLight = new RedLight(this);
+        this.greenLight = new GreenLight(this);
+        this.yellowLight = new YellowLight(this);
+
+        // Initial states
         if (state.equals("Red light")) {
+            this.state = redLight;
             this.count = 6;
         } else if (state.equals("Green light")) {
+            this.state = greenLight;
             this.count = 4;
         } else if (state.equals("Yellow light")) {
+            this.state = yellowLight;
             this.count = 1;
         }
     }
@@ -23,17 +33,8 @@ public class TrafficLight {
             count -= 1;
             return;
         }
-        int trafficDemand = numOfCars + numOfPedestrians;
-        if (state.equals("Red light")) {
-            state = "Green light";
-            count = trafficDemand > 100 ? 6 : 4;
-        } else if (state.equals("Green light")) {
-            state = "Yellow light";
-            count = 1;
-        } else if (state.equals("Yellow light")) {
-            state = "Red light";
-            count = trafficDemand < 10 ? 10 : 6;
-        }
+        setTrafficDemand(numOfCars + numOfPedestrians);
+        state.change();
     }
 
     public int timeRemaining() {
@@ -41,13 +42,42 @@ public class TrafficLight {
     }
 
     public String reportState() {
-        if (state.equals("Red light")) {
-            return "Red light";
-        } else if (state.equals("Green light")) {
-            return "Green light";
-        } else if (state.equals("Yellow light")) {
-            return "Yellow light";
-        }
-        return "Oops, unknown light!";
+        return state.reportState();
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    public int getTrafficDemand() {
+        return trafficDemand;
+    }
+
+    public State getGreenLight() {
+        return greenLight;
+    }
+
+    public State getYellowLight() {
+        return yellowLight;
+    }
+
+    public State getRedLight() {
+        return redLight;
+    }
+
+    public void setTrafficDemand(int trafficDemand) {
+        this.trafficDemand = trafficDemand;
     }
 }
