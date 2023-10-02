@@ -136,7 +136,7 @@ public class TrafficLightTest {
         assertEquals(4, intersection.timeRemaining(id));
     }
 
-    // @Test
+    @Test
     public void testShowPedestrainLightWhenHasPedestrains() {
         Intersection intersection = new Intersection();
         String id = intersection.addTrafficLight("Red light");
@@ -151,7 +151,7 @@ public class TrafficLightTest {
         assertEquals(2, intersection.timeRemaining(id));
     }
 
-    // @Test
+    @Test
     public void testPedestrainLightLast1Tick() {
         Intersection intersection = new Intersection();
         String id = intersection.addTrafficLight("Pedestrian light");

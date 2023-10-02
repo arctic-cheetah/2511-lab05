@@ -3,10 +3,11 @@ package trafficlight;
 public class TrafficLight {
     private State state;
     private int trafficDemand;
-
+    private int numOfPedestrians;
     private State greenLight;
     private State yellowLight;
     private State redLight;
+    private State pedestrianLight;
 
     private int count = 0;
 
@@ -14,6 +15,7 @@ public class TrafficLight {
         this.redLight = new RedLight(this);
         this.greenLight = new GreenLight(this);
         this.yellowLight = new YellowLight(this);
+        this.pedestrianLight = new PedestrianLight(this);
 
         // Initial states
         if (state.equals("Red light")) {
@@ -25,6 +27,9 @@ public class TrafficLight {
         } else if (state.equals("Yellow light")) {
             this.state = yellowLight;
             this.count = 1;
+        } else if (state.equals("Pedestrian light")) {
+            this.state = pedestrianLight;
+            this.count = 2;
         }
     }
 
@@ -33,6 +38,7 @@ public class TrafficLight {
             count -= 1;
             return;
         }
+        setNumOfPedestrians(numOfPedestrians);
         setTrafficDemand(numOfCars + numOfPedestrians);
         state.change();
     }
@@ -79,5 +85,17 @@ public class TrafficLight {
 
     public void setTrafficDemand(int trafficDemand) {
         this.trafficDemand = trafficDemand;
+    }
+
+    public State getPedestrianLight() {
+        return pedestrianLight;
+    }
+
+    public int getNumOfPedestrians() {
+        return numOfPedestrians;
+    }
+
+    public void setNumOfPedestrians(int numOfPedestrians) {
+        this.numOfPedestrians = numOfPedestrians;
     }
 }
