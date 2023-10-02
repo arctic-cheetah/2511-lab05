@@ -3,6 +3,8 @@ package metrics.graphing;
 import java.awt.BorderLayout;
 
 import java.awt.GridLayout;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -23,11 +25,15 @@ public class Grapher {
     public static void main(String[] args) throws InterruptedException {
         Emitter emitter = new Emitter();
         Plot plot = new Plot(emitter);
+        Plot plot2 = new Plot(emitter);
+
         // Create the GUI on the Event-Dispatch-Thread
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                Grapher.createAndShowGUI(plot);
+                Grapher.createAndShowGUI(plot, "All Points");
+                Grapher.createAndShowGUI(plot2, "Average");
+
             }
         });
 
@@ -40,13 +46,13 @@ public class Grapher {
 
     }
 
-    public static Panel createAndShowGUI(Plot plot) {
+    public static Panel createAndShowGUI(Plot plot, String statistic) {
         JFrame frame = new JFrame("Metrics");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(new BorderLayout());
         frame.setSize(800, 600);
 
-        Panel plotPanel = new Panel(plot);
+        Panel plotPanel = new Panel(plot, statistic);
         plot.setPanel(plotPanel);
 
         frame.getContentPane().add(plotPanel, BorderLayout.CENTER);
@@ -68,9 +74,10 @@ public class Grapher {
                 "All Points", "Average", "Max", "Sum"
         };
 
+        List<String> tmp = Arrays.asList(statistics);
         final JList<String> statisticsList = new JList<>(statistics);
-
-        statisticsList.setSelectedIndex(0);
+        int i = tmp.indexOf(plotPanel.getMetricBehaviour().getMetricBehaviourName());
+        statisticsList.setSelectedIndex(i);
 
         panel.add(new JLabel("statistic"));
         panel.add(statisticsList);

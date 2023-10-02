@@ -13,7 +13,10 @@ import javax.swing.JPanel;
 
 import metrics.Plot;
 import metrics.metricBehaviour.AllPoints;
+import metrics.metricBehaviour.AverageRange;
+import metrics.metricBehaviour.MaxRange;
 import metrics.metricBehaviour.MetricBehaviour;
+import metrics.metricBehaviour.SumRange;
 
 public class Panel extends JPanel {
     private static final long serialVersionUID = -6588061082489436970L;
@@ -22,12 +25,24 @@ public class Panel extends JPanel {
     private int pointWidth = 4;
     private Color gridColor = new Color(200, 200, 200, 200);
     private MetricBehaviour calculateData = new AllPoints();
-
     private Plot plot;
+    private Color dotColour = new Color((int) (255 * Math.random()), (int) (255 * Math.random()),
+            (int) (255 * Math.random()));
 
-    public Panel(Plot plot) {
+    public Panel(Plot plot, String statistic) {
+        String[] statistics = new String[] {
+                "All Points", "Average", "Max", "Sum"
+        };
+        if (statistic.equals(statistics[0])) {
+            setMetricBehaviour(new AllPoints());
+        } else if (statistic.equals(statistics[1])) {
+            setMetricBehaviour(new AverageRange());
+        } else if (statistic.equals(statistics[2])) {
+            setMetricBehaviour(new MaxRange());
+        } else if (statistic.equals(statistics[3])) {
+            setMetricBehaviour(new SumRange());
+        }
         this.plot = plot;
-        setMetricBehaviour(new AllPoints());
     }
 
     public void setPlot(Plot plot) {
@@ -64,7 +79,7 @@ public class Panel extends JPanel {
         double scale = (double) (getHeight() - 2 * marg)
                 / (Math.max(Math.abs(getMinValue(emitterData)), Math.abs(getMaxValue(emitterData))) * 2);
         paintGridLines(g, emitterData);
-        g.setColor(Color.RED);
+        g.setColor(dotColour);
 
         // set points to the graph
         for (int i = 0; i < emitterData.size(); i++) {
@@ -129,7 +144,7 @@ public class Panel extends JPanel {
         return maxValue;
     }
 
-    public MetricBehaviour getCalculateData() {
+    public MetricBehaviour getMetricBehaviour() {
         return calculateData;
     }
 

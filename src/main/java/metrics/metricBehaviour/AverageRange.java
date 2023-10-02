@@ -37,4 +37,9 @@ public class AverageRange implements MetricBehaviour {
     private double calculateAverage(List<Double> data) {
         return data.stream().mapToDouble(d -> d).average().orElse(0);
     }
+
+    public String getMetricBehaviourName() {
+        return "Average";
+    }
+
 }

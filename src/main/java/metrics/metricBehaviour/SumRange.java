@@ -37,4 +37,8 @@ public class SumRange implements MetricBehaviour {
     private double calculateSum(List<Double> data) {
         return data.stream().mapToDouble(d -> d).sum();
     }
+
+    public String getMetricBehaviourName() {
+        return "Sum";
+    }
 }

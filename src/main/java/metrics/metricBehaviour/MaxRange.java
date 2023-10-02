@@ -37,4 +37,8 @@ public class MaxRange implements MetricBehaviour {
     private double calculateMax(List<Double> data) {
         return data.stream().mapToDouble(d -> d).max().orElse(0);
     }
+
+    public String getMetricBehaviourName() {
+        return "Max";
+    }
 }

@@ -1,6 +1,8 @@
 # Task 3:
 Other uses of observer patterns include:
 EventListeners 
+SwingUtilities.invokeLater
+Thread.sleep(100);
 
 # State Pattern
 ## Task 1

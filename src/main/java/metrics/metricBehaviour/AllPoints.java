@@ -6,4 +6,8 @@ public class AllPoints implements MetricBehaviour {
     public List<Double> calculateOverInterval(List<Double> data) {
         return data;
     }
+
+    public String getMetricBehaviourName() {
+        return "All Points";
+    }
 }

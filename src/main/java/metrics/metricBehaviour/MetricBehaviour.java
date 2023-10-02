@@ -11,4 +11,6 @@ public interface MetricBehaviour {
      * @return
      */
     public List<Double> calculateOverInterval(List<Double> data);
+
+    public String getMetricBehaviourName();
 }
